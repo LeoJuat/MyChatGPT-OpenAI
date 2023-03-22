@@ -1,0 +1,23 @@
+{
+  "name": "openapitest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "npm run dev --prefix server",
+    "client": "npm start --prefix client",
+    "both": "npm run server & npm run client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeoJuat/MyChatGPT-OpenAI-API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LeoJuat/MyChatGPT-OpenAI-API/issues"
+  },
+  "homepage": "https://github.com/LeoJuat/MyChatGPT-OpenAI-API#readme"
+}
