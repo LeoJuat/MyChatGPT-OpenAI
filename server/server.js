@@ -11,26 +11,44 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-const app = express();
-app.use(bodyParser.json());
-app.use(cors());
 const port = 3080;
 
+const app = express();
+
+app.use(bodyParser.json());
+
+app.use(cors());
+
 app.post("/", async (req, res) => {
-  const { message } = req.body;
-  // const response = await openai.createCompletion({
-  //   model: "text-davinci-003",
-  //   prompt: `${message}`,
-  //   max_tokens: 100,
-  //   temperature: 0.5,
-  // });
-  const completion = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: `${message}` }],
-  });
-  res.json({
-    message: completion.data.choices[0].message.content,
-  });
+  try {
+    const { message } = req.body;
+
+    const completion = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: `${message}` }],
+    });
+    res.json({
+      message: completion.data.choices[0].message.content,
+    });
+
+    // const response = await openai.createCompletion({
+    //   model: "text-davinci-003",
+    //   prompt: `${message}`,
+    //   temperature: 0,
+    //   max_tokens: 2000,
+    //   top_p: 1,
+    //   frequency_penalty: 0.5,
+    //   presence_penalty: 0,
+    // });
+
+    // console.log(response.data.choices[0].text, "TEST!!");
+    // res.status(200).send({
+    //   message: response.data.choices[0].text,
+    // });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error });
+  }
 });
 
 app.listen(port, () => {
